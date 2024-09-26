@@ -2,7 +2,7 @@
 SCRIPT_VERSION=v1.0
 SCRIPT_AUTHOR=MIRA team
 
-CC=aarch64-linux-gnu-cc
+CC=aarch64-linux-gnu-gcc
 C_FLAGS:=-O3 -flto -std=c99 -pedantic -Wall -Wextra -march=armv8-a -mtune=cortex-a53 $(OPENSSL_INCLUDE) -L/home/extreme45nm/main-courses/cybr-7901/openssl-armv8/lib -lcrypto
 C_FLAGS_VERBOSE:= -O3 -pg -flto -std=c99 -pedantic -Wall -Wextra -Wpedantic -Werror -march=armv8-a -mtune=cortex-a53 -DVERBOSE $(OPENSSL_INCLUDE) -L/home/extreme45nm/main-courses/cybr-7901/openssl-armv8/lib -lcrypto
 
