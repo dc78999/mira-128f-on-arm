@@ -11,34 +11,19 @@
 #include "randombytes.h"
 #include "api.h"
 
+#include <time.h>
 
-
-inline static uint64_t cpucyclesStart (void) {
-    unsigned hi, lo;
-    __asm__ __volatile__ (	"CPUID\n\t"
-                "RDTSC\n\t"
-                "mov %%edx, %0\n\t"
-                "mov %%eax, %1\n\t"
-                : "=r" (hi), "=r" (lo)
-                :
-                : "%rax", "%rbx", "%rcx", "%rdx");
-
-    return ((uint64_t) lo) ^ (((uint64_t) hi) << 32);
+// Use another method (monotonic clock) to count CPU cycles
+inline static uint64_t cpucyclesStart(void) {
+    struct timespec start;
+    clock_gettime(CLOCK_MONOTONIC, &start);
+    return (uint64_t)start.tv_sec * 1000000000L + start.tv_nsec;
 }
 
-
-
-inline static uint64_t cpucyclesStop (void) {
-    unsigned hi, lo;
-    __asm__ __volatile__(	"RDTSCP\n\t"
-                "mov %%edx, %0\n\t"
-                "mov %%eax, %1\n\t"
-                "CPUID\n\t"
-                : "=r" (hi), "=r" (lo)
-                :
-                : "%rax", "%rbx", "%rcx", "%rdx");
-
-    return ((uint64_t) lo) ^ (((uint64_t) hi) << 32);
+inline static uint64_t cpucyclesStop(void) {
+    struct timespec stop;
+    clock_gettime(CLOCK_MONOTONIC, &stop);
+    return (uint64_t)stop.tv_sec * 1000000000L + stop.tv_nsec;
 }
 
 

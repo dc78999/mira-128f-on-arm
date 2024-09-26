@@ -16,7 +16,7 @@ ifeq ($(PLATFORM), avx2)
 	SPECIFIC_SOURCES=avx2/KeccakP-1600-AVX2.s avx2/KeccakP-1600-times4-SIMD256.c
 	SPECIFIC_OBJECTS=avx2/KeccakP-1600-AVX2.o avx2/KeccakP-1600-times4-SIMD256.o
 endif
-ifeq ($(PLATFORM), arvm8)
+ifeq ($(PLATFORM), armv8)
 	SPECIFIC_SOURCES=ARMv8A/KeccakP-1600-armv8a-neon.s ARMv8A/KeccakP-1600-SnP.h
 	SPECIFIC_OBJECTS=ARMv8A/KeccakP-1600-armv8a-neon.o
 endif
